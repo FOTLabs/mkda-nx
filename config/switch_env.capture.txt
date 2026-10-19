@@ -1,0 +1,6 @@
+# One frame of the broken scene: hold L + R + click the left stick.
+# Applied on the next launch. Capture closes after that frame.
+MKDA_LOG=1
+RECOMP_QUIET=1
+RECOMP_CAPTURE=sdmc:/switch/mkdax/render-issue.fixture.gz
+RECOMP_CAPTURE_AT=pad,1

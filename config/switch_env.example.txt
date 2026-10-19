@@ -1,0 +1,27 @@
+# Switch layout: sdmc:/switch/mkdax/mkdax_env.txt
+# Read at startup; KEY=VALUE, spaces around '=' are allowed.
+# Assets: sdmc:/switch/mkdax/game/default.xbe and the extracted game files.
+# Saves:  sdmc:/switch/mkdax/save
+MKDA_LOG=1
+RECOMP_QUIET=1
+RECOMP_GL_THREAD=1
+# Finish cached shader compilation before the intro starts.
+RECOMP_GL_PREWARM_BLOCK=1
+# Integer GPU conversion; RECOMP_GL_YUV_GPU=0 restores the CPU decoder.
+RECOMP_GL_YUV_GPU=1
+# Buffy HD profile: soft peaks and lighter high-band detail.
+MKDA_RUMBLE_STRENGTH=0.55
+# Moderate visual upgrade; set SCALE=1 to restore the original render cost.
+RECOMP_GL_SCALE=1.5
+RECOMP_GL_ANISO=4
+RECOMP_GL_MSAA=2
+# Stable output reserve; smaller buffers crackled on hardware.
+RECOMP_AUDIO_BLOCKS=12
+RECOMP_AUDIO_DEVICE_SAMPLES=1024
+
+# Disable SD log formatting/output when measuring gameplay performance.
+# MKDA_LOG=0
+
+# Optional diagnostics. The timed watchdog deliberately exits after a snapshot.
+# RECOMP_WATCHDOG_SECS=600
+# MKDA_TASK_STACK_GUARD=1

@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.github.com https://github.com https://objects.githubusercontent.com https://release-assets.githubusercontent.com; script-src 'self'; style-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'">
+<title>MK Deadly Alliance NX Installer</title><link rel="stylesheet" href="style.css"></head>
+<body><main><header><h1>MORTAL KOMBAT<span>DEADLY ALLIANCE</span></h1><p class="subtitle">Nintendo Switch installer</p><p class="intro">Create the Switch package from your own original Xbox copy.<br>Everything happens here, in your browser.</p></header>
+<section><h2><span class="step">01</span> Choose your game</h2><div class="formats"><label><input type="radio" name="format" id="format-iso" checked> Xbox disc image (.iso)</label><label><input type="radio" name="format" id="format-folder"> Extracted folder</label></div>
+<div id="iso-choice"><label class="filelabel" for="iso">Select your disc image<input id="iso" type="file" accept=".iso"></label></div>
+<div id="folder-choice" hidden><label class="filelabel" for="folder">Select the folder containing default.xbe<input id="folder" type="file" webkitdirectory multiple></label></div>
+<p class="hint">You need your own legally obtained European Xbox copy. Your files are read locally and never uploaded.</p></section>
+<section><h2><span class="step">02</span> Create the package</h2><button id="create">Create mkda-nx.zip <span>↓</span></button>
+<p id="status" role="status" aria-live="polite">Ready. Use desktop Chrome or Edge.</p></section>
+<section class="copy"><h2><span class="step">03</span> Copy it to the Switch</h2><ol><li>Extract the ZIP into the root of your SD card.</li><li>Launch <code>switch/mkdax/mkdax.nro</code> through full-memory homebrew / title takeover.</li></ol></section>
+<footer><a href="https://github.com/FOTLabs/mkda-nx">Source code</a><span>✦</span><a href="LICENSES.txt">Credits &amp; licences</a><p>Unofficial and unaffiliated with the Mortal Kombat rights holders, Midway, Microsoft or Nintendo. You must provide your own game. Original background artwork made for this installer.</p></footer></main><script type="module" src="app.mjs"></script></body></html>

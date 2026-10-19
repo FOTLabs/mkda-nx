@@ -1,0 +1,61 @@
+cmake_minimum_required(VERSION 3.20)
+project(mkda_recomp C)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(XBOXRECOMP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/sdk" CACHE PATH "XboxRecomp toolkit")
+add_subdirectory("${XBOXRECOMP_DIR}" "${CMAKE_BINARY_DIR}/xboxrecomp")
+file(GLOB RECOMP_SOURCES CONFIGURE_DEPENDS "generated/gen/*.c")
+if(NOT RECOMP_SOURCES)
+    message(FATAL_ERROR "Run python3 tools/lift.py under WSL first")
+endif()
+if(NINTENDO_SWITCH)
+    set(MKDA_DIAGNOSTICS src/diagnostics_switch.c)
+else()
+    set(MKDA_DIAGNOSTICS src/diagnostics.c)
+endif()
+add_executable(mkda_recomp src/main.c ${MKDA_DIAGNOSTICS} src/io_ports.c src/devices.c
+    src/coroutines.c src/memory.c src/recomp_manual.c src/frame_pacing.c src/xdk_hooks.c
+    "${XBOXRECOMP_DIR}/src/game/xdk_hooks.c" ${RECOMP_SOURCES})
+target_include_directories(mkda_recomp PRIVATE generated generated/gen)
+target_link_libraries(mkda_recomp PRIVATE xboxrecomp)
+if(NOT MSVC)
+    # Guest RAM is accessed through both integer and float pointers. The
+    # generated operations also rely on two's-complement signed wrapping.
+    set(MKDA_GENERATED_FLAGS -w -fno-strict-aliasing -fwrapv)
+    if(NINTENDO_SWITCH)
+        list(PREPEND MKDA_GENERATED_FLAGS -O2)
+        # Same TLS block as libnx, read directly as in the Buffy port. Every
+        # thread entering guest code initializes TPIDR_EL0 first.
+        list(APPEND MKDA_GENERATED_FLAGS -mtp=el0)
+        set_property(SOURCE src/coroutines.c src/memory.c src/recomp_manual.c
+            src/xdk_hooks.c "${XBOXRECOMP_DIR}/src/game/xdk_hooks.c"
+            APPEND PROPERTY COMPILE_OPTIONS -mtp=el0)
+    endif()
+    set_source_files_properties(${RECOMP_SOURCES} PROPERTIES
+        COMPILE_OPTIONS "${MKDA_GENERATED_FLAGS}")
+endif()
+if(NINTENDO_SWITCH)
+    enable_language(ASM)
+    target_sources(mkda_recomp PRIVATE src/native_context_aarch64.S src/switch_bootstrap.c src/rumble.c src/input.c)
+endif()
+add_executable(mkda_interrupt_test EXCLUDE_FROM_ALL "${XBOXRECOMP_DIR}/tests/test_interrupt_mask.c")
+target_link_libraries(mkda_interrupt_test PRIVATE xboxrecomp)
+target_compile_options(mkda_interrupt_test PRIVATE -UNDEBUG)
+add_executable(mkda_event_poll_test EXCLUDE_FROM_ALL "${XBOXRECOMP_DIR}/tests/test_event_poll.c")
+target_link_libraries(mkda_event_poll_test PRIVATE xboxrecomp platform m)
+target_compile_options(mkda_event_poll_test PRIVATE -UNDEBUG)
+if(NOT WIN32 AND NOT NINTENDO_SWITCH)
+    add_executable(mkda_gl_shutdown_test EXCLUDE_FROM_ALL tests/test_gl_shutdown.c)
+    target_link_libraries(mkda_gl_shutdown_test PRIVATE
+        "$<LINK_GROUP:RESCAN,xbox_kernel,xbox_nv2a_gl>" xboxrecomp platform m)
+    target_compile_options(mkda_gl_shutdown_test PRIVATE -UNDEBUG)
+endif()
+if(NOT WIN32 AND NOT NINTENDO_SWITCH)
+    target_link_options(mkda_recomp PRIVATE -rdynamic)
+    option(MKDA_HEAP_DIAGNOSTICS "Validate MKDA free lists before insertion" OFF)
+    if(MKDA_HEAP_DIAGNOSTICS)
+        target_sources(mkda_recomp PRIVATE src/heap_diagnostics.c)
+        set_property(SOURCE generated/gen/recomp_0023.c APPEND PROPERTY
+            COMPILE_OPTIONS -finstrument-functions)
+    endif()
+endif()

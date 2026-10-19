@@ -1,0 +1,107 @@
+{
+  "_doc": "XDK library functions the runtime can hook, by MSVC-mangled symbol. Several names = variants across XDK versions; any one may match. section = XBE sections it may live in (validation). See __main__.py.",
+  "d3d_block_on_time": {
+    "names": [
+      "?BlockOnTime@D3D@@YGXKH@Z"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "d3d_make_space": {
+    "names": [
+      "?MakeSpace@D3D@@YGPCKXZ"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "d3d_vblank": {
+    "names": [
+      "?VBlank@CMiniport@D3D@@AAEKXZ"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "d3d_software_method": {
+    "names": [
+      "?SoftwareMethod@CMiniport@D3D@@AAEXKK@Z"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "d3d_service_gr_interrupt": {
+    "names": [
+      "?ServiceGrInterrupt@CMiniport@D3D@@AAEKXZ"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "d3d_isr": {
+    "names": [
+      "?Isr@CMiniport@D3D@@SGEPAU_KINTERRUPT@@PAX@Z"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "d3d_dpc": {
+    "names": [
+      "?Dpc@CMiniport@D3D@@SGXPAU_KDPC@@PAX11@Z"
+    ],
+    "section": [
+      "D3D"
+    ]
+  },
+  "crt_memmove": {
+    "names": [
+      "_memmove"
+    ],
+    "section": [
+      ".text"
+    ]
+  },
+  "dsound_gp_parse_effect_image": {
+    "names": [
+      "?ParseEffectImageInfo@CMcpxGPDspManager@DirectSound@@IAEJPBX@Z"
+    ],
+    "section": [
+      "DSOUND"
+    ]
+  },
+  "dsound_gp_commit_changes": {
+    "names": [
+      "?CommitChanges@CMcpxGPDspManager@DirectSound@@QAEXKK@Z"
+    ],
+    "section": [
+      "DSOUND"
+    ]
+  },
+  "xapi_xinput_open": {
+    "names": [
+      "_XInputOpen@16"
+    ],
+    "section": [
+      "XPP"
+    ]
+  },
+  "xapi_xinput_get_state": {
+    "names": [
+      "_XInputGetState@8"
+    ],
+    "section": [
+      "XPP"
+    ]
+  },
+  "xapi_xget_devices": {
+    "names": [
+      "_XGetDevices@4"
+    ],
+    "section": [
+      "XPP"
+    ]
+  }
+}

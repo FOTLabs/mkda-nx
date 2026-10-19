@@ -1,0 +1,11 @@
+{
+  "title": "Mortal Kombat: Deadly Alliance",
+  "edition": "Europe (En,Fr,De,Es,It)",
+  "title_id": "4D57000C",
+  "xbe_sha256": "4c94cde42eb71e339417f7ce99a659d16952f353575ef59e6be73d434359b476",
+  "entry_point": "0015F39E",
+  "xdk_build": 4721,
+  "framework_baseline": "9e96960",
+  "framework_branch": "mkda-switch",
+  "target": "Nintendo Switch, with Linux development and validation"
+}
