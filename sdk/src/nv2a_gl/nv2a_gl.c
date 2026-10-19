@@ -1145,7 +1145,11 @@ static void bind_stage(const uint32_t *regs, int i, float scale[2])
             }
         }
     }
-    rt = surf_find(va);
+    /* An indexed image is palette data in guest RAM, never the RGBA image
+     * of a render target. Titles recycle old target allocations for character
+     * textures between bouts. Matching only the address then samples the old
+     * (often white) FBO instead of decoding the new indices and palette. */
+    rt = color == 0x0B ? NULL : surf_find(va);
     if (rt) {
         surf_resolve(rt);
         tex = rt->tex;

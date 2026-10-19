@@ -1,6 +1,6 @@
 {
-  "version": "1.0.0",
-  "nroSha256": "36c34c8c981fbe7976af23ae9aa2a253ea66e7489d332ad6be4f03bcced3a001",
+  "version": "1.0.1",
+  "nroSha256": "6a8872cc9cd63a74853a7375d64e23812e39265950c2dc6c71d3fc80aa3bd4ed",
   "nroUrl": "./release/mkdax.nro",
   "status": "release"
 }

@@ -23,7 +23,7 @@ It runs at 960×720 with 2× MSAA and 4× anisotropic filtering, targeting the o
   save/               created on first run
 ```
 
-For manual installation, download `mkda-nx-v1.0.0-switch.zip` from [Releases](https://github.com/FOTLabs/mkda-nx/releases), extract it to your SD root, and copy your extracted disc into `/switch/mkdax/game/`. Keep existing `save/` files when updating. The installer validates the executable revision; use a complete, unmodified disc extraction.
+For manual installation, download `mkda-nx-v1.0.1-switch.zip` from [Releases](https://github.com/FOTLabs/mkda-nx/releases), extract it to your SD root, and copy your extracted disc into `/switch/mkdax/game/`. Keep existing `save/` files when updating. The installer validates the executable revision; use a complete, unmodified disc extraction.
 
 ## Controls
 

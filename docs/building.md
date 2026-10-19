@@ -52,7 +52,7 @@ Guest tests require generated code. Renderer fixture tests use local captures an
 ## Releases
 
 ```sh
-python3 tools/package_release.py --build build/switch --output build/release --version 1.0.0
+python3 tools/package_release.py --build build/switch --output build/release --version 1.0.1
 ```
 
 The script exports the matching committed source, NRO, SD layout, checksums, licence notices and relink materials. It runs the supplied relink command and requires a byte-identical NRO. No retail data is copied into the release package. `tools/relink.py` supports replacing the LGPL APU archive with a modified one.
