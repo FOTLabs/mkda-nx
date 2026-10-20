@@ -1,7 +1,7 @@
 """Create versioned NRO, matching source and LGPL relink materials locally."""
 from pathlib import Path
 import argparse, hashlib, json, os, shlex, shutil, subprocess, tarfile, tempfile, zipfile
-p=argparse.ArgumentParser(description=__doc__);p.add_argument("--build",type=Path,required=True);p.add_argument("--output",type=Path,required=True);p.add_argument("--version",default="1.0.1");p.add_argument("--source-root",type=Path);a=p.parse_args()
+p=argparse.ArgumentParser(description=__doc__);p.add_argument("--build",type=Path,required=True);p.add_argument("--output",type=Path,required=True);p.add_argument("--version",default="1.0.2");p.add_argument("--source-root",type=Path);a=p.parse_args()
 root=Path(__file__).resolve().parents[1];build=a.build.resolve();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
 sha=lambda p:hashlib.file_digest(open(p,"rb"),"sha256").hexdigest()
 nro=build/"mkdax.nro"

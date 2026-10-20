@@ -49,10 +49,18 @@ python3 tools/test_sse_aarch64.py
 
 Guest tests require generated code. Renderer fixture tests use local captures and are optional; retail captures are not distributed. The pacing regression checks 600 fast frames, stalls and context changes without controller replay.
 
+To test Kano's actual arcade ending without playing arcade mode, run
+`python3 tools/test_ending_preview.py` after building Linux. It enters the retail
+ending loader after normal startup, uses `build/ending-preview/saves`, and compares
+the complete scene with and without 60 Hz pacing. Logs and periodic frame images
+are written under `logs/`. This explicit diagnostic is Linux-only and supplies no
+controller input. The preview exits after the ending; it does not run in the
+Switch build or normal launches.
+
 ## Releases
 
 ```sh
-python3 tools/package_release.py --build build/switch --output build/release --version 1.0.1
+python3 tools/package_release.py --build build/switch --output build/release --version 1.0.2
 ```
 
 The script exports the matching committed source, NRO, SD layout, checksums, licence notices and relink materials. It runs the supplied relink command and requires a byte-identical NRO. No retail data is copied into the release package. `tools/relink.py` supports replacing the LGPL APU archive with a modified one.

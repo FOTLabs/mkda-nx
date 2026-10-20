@@ -31,9 +31,14 @@ void sub_00144D30(void)
 #if defined(__SWITCH__)
     /* CB740 advances 44CACC once before this poll. Direction handler128910
      * compares successive taps against13 ticks; running the loop uncapped
-     * shrinks that interval with renderer speed. Pace combat context5 only. */
+     * shrinks that interval with renderer speed. Arcade endings (context14)
+     * likewise use frame-counted scene/subtitle waits alongside real audio. */
     extern void mkda_game_frame_pace(int active);
-    mkda_game_frame_pace(MEM32(0x2f6e64) == 5);
+    extern int mkda_frame_paced_context(uint32_t context);
+    mkda_game_frame_pace(mkda_frame_paced_context(MEM32(0x2f6e64)));
+#elif !defined(_WIN32)
+    extern void mkda_ending_preview_frame(uint32_t) __attribute__((weak));
+    if (mkda_ending_preview_frame) mkda_ending_preview_frame(MEM32(0x2f6e64));
 #endif
     sub_00144D30_gen();
     static uint32_t previous[6];
@@ -133,6 +138,13 @@ static void movie_subtitle(void)
 /* Add title-specific replacements only after examining MKDA's guest ABI. */
 recomp_func_t recomp_lookup_manual(uint32_t va)
 {
+#if !defined(__SWITCH__) && !defined(_WIN32)
+    extern recomp_func_t mkda_ending_preview_lookup(uint32_t) __attribute__((weak));
+    if (mkda_ending_preview_lookup) {
+        recomp_func_t preview = mkda_ending_preview_lookup(va);
+        if (preview) return preview;
+    }
+#endif
     if (va == 0x00024FB0) return movie_subtitle;
     if (va == 0x002075C9) return movie_audio_clock;
     if (va == 0x000E1765) return mkda_task_complete;

@@ -21,7 +21,7 @@ void mkda_game_frame_pace(int active)
     static int announced;
     if (active && !announced) {
         announced = 1;
-        fprintf(stderr, "[MKDA] Combat simulation paced at60Hz\n");
+        fprintf(stderr, "[MKDA] Combat and arcade endings paced at60Hz\n");
     }
     uint64_t wait = mkda_frame_wait(&deadline, armGetSystemTick(), 19200000, active);
     if (wait) svcSleepThread((int64_t)((wait * 1000000000 + 19199999) / 19200000));
